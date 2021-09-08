@@ -1,0 +1,35 @@
+<idea-plugin>
+  <id>com.baoluchuling.personal.json2dart</id>
+  <name>Json2Dart</name>
+  <version>1.0</version>
+  <vendor email="baoluchuling@126.com" url="http://www.baoluchuling.com">baoluchuling</vendor>
+
+  <description><![CDATA[
+      支持json转dart
+    ]]></description>
+
+  <change-notes><![CDATA[
+      1.0 支持dart
+      1.1 兼容旧版本 Android Studio
+    ]]>
+  </change-notes>
+
+  <!-- please see https://plugins.jetbrains.com/docs/intellij/build-number-ranges.html for description -->
+  <idea-version since-build="173"/>
+
+  <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+       on how to target different products -->
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+    <action id="com.baoluchuling.json2dart" class="template.TranslateAction" text="Json To Dart">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="WeighingNewGroup"/>
+    </action>
+  </actions>
+
+</idea-plugin>

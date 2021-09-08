@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jsonpath">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jsonpath.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
