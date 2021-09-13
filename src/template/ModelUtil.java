@@ -69,8 +69,8 @@ public class ModelUtil {
                             .append("'] == null ? ")
                             .append(ModelUtil.defaultValue.array)
                             .append(" : ")
-                            .append(Default.isBaseType(clas) ? "json['" + variableName + "']" : "List<" + clas + ">.from((json['" + variableName + "']).map((e) => " + clas + ".fromJson(e)).toList()")
-                            .append(");\n");
+                            .append(Default.isBaseType(clas) ? "json['" + variableName + "']" : "List<" + clas + ">.from((json['" + variableName + "']).map((e) => " + clas + ".fromJson(e)).toList())")
+                            .append(";\n");
                 } else if (type.equals("map")) {
                     string
                             .append("        ")
