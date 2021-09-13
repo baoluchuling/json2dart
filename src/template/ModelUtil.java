@@ -12,6 +12,10 @@ class Default {
     public String bool = "false";
     public String array = "[]";
     public String object = "null";
+
+    public static boolean isBaseType(String type) {
+        return type.equals("String") || type.equals("int") || type.equals("bool");
+    }
 }
 
 public class ModelUtil {
@@ -65,13 +69,8 @@ public class ModelUtil {
                             .append("'] == null ? ")
                             .append(ModelUtil.defaultValue.array)
                             .append(" : ")
-                            .append("List<")
-                            .append(clas)
-                            .append(">.from((json['")
-                            .append(variableName)
-                            .append("']).map((e) => ")
-                            .append(clas)
-                            .append(".fromJson(e)).toList());\n");
+                            .append(Default.isBaseType(clas) ? "json['" + variableName + "']" : "List<" + clas + ">.from((json['" + variableName + "']).map((e) => " + clas + ".fromJson(e)).toList()")
+                            .append(");\n");
                 } else if (type.equals("map")) {
                     string
                             .append("        ")
@@ -141,15 +140,26 @@ public class ModelUtil {
         Map<String, Map<String, Map<String, String>>> res = new LinkedHashMap<>();
         Map<String, Map<String, String>> tmpMap = new LinkedHashMap<>();
 
+        if (object == null) return res;
+
         for (String key : object.keySet()) {
             Object value = object.get(key);
 
             if (value instanceof JSONArray) {
                 Map<String, String> tm = new LinkedHashMap<>();
                 tm.put("type", "array");
-                tm.put("name", capture(key));
+
+                Object child = ((JSONArray) value).get(0);
+
+                if (child instanceof JSONObject) {
+                    tm.put("name", capture(key));
+                    res.putAll(process(capture(key), (JSONObject) child));
+                } else {
+                    tm.put("name", "String");
+                }
+
                 tmpMap.put(key, tm);
-                res.putAll(process(capture(key), (JSONObject) ((JSONArray) value).get(0)));
+
             } else if (value instanceof JSONObject) {
                 Map<String, String> tm = new LinkedHashMap<>();
                 tm.put("type", "map");
